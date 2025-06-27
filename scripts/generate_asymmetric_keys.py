@@ -162,7 +162,7 @@ def save_key_pair_formats(private_key, public_key, algorithm: str, output_dir: P
         algorithm (str): The algorithm (RS256, ES256, etc.)
         output_dir (Path): Directory to save the keys
     """
-    output_dir.mkdir(exist_ok=True)
+    output_dir.mkdir(parents=True, exist_ok=True)
     
     # Serialize private key
     private_pem = private_key.private_bytes(
