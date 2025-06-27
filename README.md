@@ -10,6 +10,7 @@ jws-samples/
 ├── typescript-jws/     # TypeScript JWS examples using jose library
 ├── go-jws/            # Go JWS examples using golang-jwt
 ├── python-jws/        # Python JWS examples using PyJWT
+├── scripts/           # Key generation utilities
 ├── package.json       # Root package.json for monorepo management
 └── README.md          # This file
 ```
@@ -111,6 +112,57 @@ npm run test:java
 npm run test:go
 npm run test:python
 ```
+
+## Key Generation
+
+The `scripts/` directory contains Python utilities for generating secure cryptographic keys for all sample projects.
+
+### Quick Start with Key Generation
+
+1. **Install key generation dependencies:**
+   ```bash
+   cd scripts
+   pip install -r requirements.txt
+   ```
+
+2. **Generate HMAC keys for symmetric signing:**
+   ```bash
+   python generate_hmac_key.py --all --output-dir keys
+   ```
+
+3. **Generate RSA/ECDSA key pairs for asymmetric signing:**
+   ```bash
+   python generate_asymmetric_keys.py --all --output-dir keys
+   ```
+
+### Available Key Generation Scripts
+
+- **`generate_hmac_key.py`** - Generate HMAC keys (HS256, HS384, HS512)
+- **`generate_asymmetric_keys.py`** - Generate RSA and ECDSA key pairs (RS256/384/512, ES256/384/512)
+- **`key_utils.py`** - Key conversion, validation, and inspection utilities
+
+### Generated Key Formats
+
+Each script generates keys in multiple formats for different programming languages:
+- **Universal formats**: JSON, PEM, DER, Base64
+- **Language-specific formats**: Java, Python, Go, TypeScript with usage examples
+
+### Example: Generate and Use Keys
+
+```bash
+# Generate HS256 key
+cd scripts
+python generate_hmac_key.py --algorithm HS256
+
+# Generated files in keys/hs256/:
+# - hs256_key.json (universal format)
+# - hs256_key.java (Java format)
+# - hs256_key.py (Python format)
+# - hs256_key.go (Go format)
+# - hs256_key.ts (TypeScript format)
+```
+
+See `scripts/README.md` for detailed documentation and security best practices.
 
 ## Example Usage
 

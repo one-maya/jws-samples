@@ -11,7 +11,8 @@
     "build:python": "cd python-jws && python -m py_compile main.py",
     "install:typescript": "cd typescript-jws && npm install",
     "install:python": "cd python-jws && pip install -r requirements.txt",
-    "install:all": "npm run install:typescript && npm run install:python",
+    "install:scripts": "cd scripts && pip install -r requirements.txt",
+    "install:all": "npm run install:typescript && npm run install:python && npm run install:scripts",
     "test": "npm run test:typescript && npm run test:java",
     "test:typescript": "cd typescript-jws && npm test",
     "test:java": "cd java-jws && mvn test",
@@ -25,12 +26,21 @@
     "clean:typescript": "cd typescript-jws && rm -rf dist node_modules",
     "clean:java": "cd java-jws && mvn clean",
     "clean:go": "cd go-jws && go clean",
-    "clean:python": "cd python-jws && find . -type f -name '*.pyc' -delete && find . -type d -name '__pycache__' -delete"
+    "clean:python": "cd python-jws && find . -type f -name '*.pyc' -delete && find . -type d -name '__pycache__' -delete",
+    "keys:hmac": "cd scripts && python generate_hmac_key.py --all --output-dir keys",
+    "keys:asymmetric": "cd scripts && python generate_asymmetric_keys.py --all --output-dir keys",
+    "keys:asymmetric-with-jwks": "cd scripts && python generate_asymmetric_keys.py --all --generate-combined-jwks --output-dir keys",
+    "keys:jwks": "cd scripts && python generate_jwks.py --scan-keys keys --output jwks.json --public-only --pretty",
+    "keys:all": "npm run keys:hmac && npm run keys:asymmetric",
+    "keys:all-with-jwks": "npm run keys:hmac && npm run keys:asymmetric-with-jwks",
+    "keys:info": "cd scripts && python key_utils.py info",
+    "keys:validate-jwks": "cd scripts && python key_utils.py jwks-validate",
+    "clean:keys": "rm -rf scripts/keys"
   },
   "workspaces": [
     "typescript-jws"
   ],
-  "keywords": ["jws", "json-web-signature", "monorepo", "java", "typescript", "go", "python"],
+  "keywords": ["jws", "json-web-signature", "monorepo", "java", "typescript", "go", "python", "cryptography", "key-generation", "jwks", "json-web-key-set"],
   "author": "",
   "license": "MIT"
 }
