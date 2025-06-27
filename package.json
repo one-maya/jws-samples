@@ -1,0 +1,36 @@
+{
+  "name": "jws-samples-monorepo",
+  "version": "1.0.0",
+  "description": "Monorepo containing JWS (JSON Web Signature) examples in Java, TypeScript, Go, and Python",
+  "private": true,
+  "scripts": {
+    "build": "npm run build:typescript",
+    "build:typescript": "cd typescript-jws && npm run build",
+    "build:java": "cd java-jws && mvn clean compile",
+    "build:go": "cd go-jws && go build -o jws-example .",
+    "build:python": "cd python-jws && python -m py_compile main.py",
+    "install:typescript": "cd typescript-jws && npm install",
+    "install:python": "cd python-jws && pip install -r requirements.txt",
+    "install:all": "npm run install:typescript && npm run install:python",
+    "test": "npm run test:typescript && npm run test:java",
+    "test:typescript": "cd typescript-jws && npm test",
+    "test:java": "cd java-jws && mvn test",
+    "test:go": "cd go-jws && go test ./...",
+    "test:python": "cd python-jws && python -m pytest -v",
+    "run:typescript": "cd typescript-jws && npm run dev",
+    "run:java": "cd java-jws && mvn exec:java -Dexec.mainClass='com.example.JWSExample'",
+    "run:go": "cd go-jws && go run main.go",
+    "run:python": "cd python-jws && python main.py",
+    "clean": "npm run clean:typescript && npm run clean:java && npm run clean:go && npm run clean:python",
+    "clean:typescript": "cd typescript-jws && rm -rf dist node_modules",
+    "clean:java": "cd java-jws && mvn clean",
+    "clean:go": "cd go-jws && go clean",
+    "clean:python": "cd python-jws && find . -type f -name '*.pyc' -delete && find . -type d -name '__pycache__' -delete"
+  },
+  "workspaces": [
+    "typescript-jws"
+  ],
+  "keywords": ["jws", "json-web-signature", "monorepo", "java", "typescript", "go", "python"],
+  "author": "",
+  "license": "MIT"
+}
