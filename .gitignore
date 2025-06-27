@@ -1,0 +1,6 @@
+# test files
+scripts/keys
+
+# development files
+.python-version
+go-jws/go.sum
